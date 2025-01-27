@@ -11,18 +11,18 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         // Get form values
-        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         const rememberMe = document.getElementById('rememberMe').checked;
 
         // Validate inputs
-        if (!username || !password) {
+        if (!email || !password) {
             showMessage('Please fill in all fields', 'error');
             return;
         }
 
         // Simulate login (replace with actual API call)
-        simulateLogin(username, password, rememberMe);
+        simulateLogin(email, password, rememberMe);
     });
 
     signupLink.addEventListener('click', function(e) {
@@ -43,12 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
 
         // Get signup form values
-        const signupUsername = document.getElementById('signupUsername').value.trim();
+        const signupEmail = document.getElementById('signupUsername').value.trim();
         const signupPassword = document.getElementById('signupPassword').value.trim();
         const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
         // Validate inputs
-        if (!signupUsername || !signupPassword || !confirmPassword) {
+        if (!signupEmail || !signupPassword || !confirmPassword) {
             showMessage('Please fill in all fields', 'error');
             return;
         }
@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Simulate signup (replace with actual API call)
-        simulateSignup(signupUsername, signupPassword);
+        simulateSignup(signupEmail, signupPassword);
     });
 
-    function simulateLogin(username, password, rememberMe) {
+    function simulateLogin(email, password, rememberMe) {
         // Show loading state
         const loginButton = loginForm.querySelector('button');
         loginButton.disabled = true;
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Store remember me preference if checked
             if (rememberMe) {
-                localStorage.setItem('rememberedUser', username);
+                localStorage.setItem('rememberedUser', email);
             } else {
                 localStorage.removeItem('rememberedUser');
             }
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
-    function simulateSignup(username, password) {
+    function simulateSignup(signupEmail, signupPassword) {
         // Show loading state
         const signupButton = signupForm.querySelector('button');
         signupButton.disabled = true;

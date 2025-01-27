@@ -97,7 +97,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] { /* Added email input styles */
     width: 100%;
     padding: 0.8rem;
     border: 2px solid #DFF0D8;
@@ -107,7 +108,8 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="email"]:focus { /* Added email input focus styles */
     outline: none;
     border-color: #53A318;
 }
