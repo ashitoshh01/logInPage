@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageDiv = document.getElementById('message');
 
     let generatedOtp = null;
+    let userEmail = null;
 
     // Simulate sending OTP
     sendOtpButton.addEventListener('click', function (e) {
@@ -19,22 +20,30 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Simulate API call to check if email exists
-        setTimeout(() => {
-            // Replace this with actual API call to check if email exists
-            const validEmails = ['user@example.com', 'test@example.com']; // Add valid emails here
-            if (validEmails.includes(email)) { // Check if email exists in the list
-                generatedOtp = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit OTP
-                showMessage(`OTP sent to ${email}.`, 'success');
+        // Validate email format (basic check)
+        if (!validateEmail(email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            return;
+        }
 
-                // Hide email section and show OTP section
-                emailSection.style.display = 'none';
-                otpSection.style.display = 'block';
-                otpSection.classList.add('slide-down');
-            } else {
-                showMessage('Email does not exist.', 'error');
-            }
-        }, 1000);
+        // Simulate checking if email exists in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userExists = users.some(user => user.email === email);
+
+        if (!userExists) {
+            showMessage('Email does not exist.', 'error');
+            return;
+        }
+
+        // Simulate sending OTP
+        generatedOtp = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit OTP
+        userEmail = email; // Store the email for later use
+        showMessage(`OTP sent to ${email}.`, 'success');
+
+        // Hide email section and show OTP section
+        emailSection.style.display = 'none';
+        otpSection.style.display = 'block';
+        otpSection.classList.add('slide-down');
     });
 
     // Simulate OTP verification
@@ -47,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        if (otp == generatedOtp) { // Replace with actual OTP verification logic
+        if (otp == generatedOtp) { // Verify the OTP
             showMessage('OTP verified successfully.', 'success');
 
             // Hide OTP section and show reset password section
@@ -75,15 +84,29 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Simulate API call to reset password
-        setTimeout(() => {
+        // Simulate updating password in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userIndex = users.findIndex(user => user.email === userEmail);
+
+        if (userIndex !== -1) {
+            users[userIndex].password = newPassword; // Update the password
+            localStorage.setItem('users', JSON.stringify(users)); // Save to localStorage
             showMessage('Password reset successfully. Redirecting to login page...', 'success');
             setTimeout(() => {
                 window.location.href = 'index.html'; // Redirect to login page
             }, 2000);
-        }, 1000);
+        } else {
+            showMessage('User not found.', 'error');
+        }
     });
 
+    // Function to validate email format
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    // Function to show messages
     function showMessage(text, type) {
         messageDiv.textContent = text;
         messageDiv.className = `message ${type}`;

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
     const messageDiv = document.getElementById('message');
@@ -7,132 +7,120 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginLink = document.querySelector('.login-link');
     const welcomeText = document.getElementById('welcomeText');
 
-    loginForm.addEventListener('submit', function(e) {
+    // Toggle between login and signup forms
+    signupLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        signupBox.style.display = 'block';
+        welcomeText.style.display = 'none';
+    });
+
+    loginLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        signupBox.style.display = 'none';
+        loginForm.style.display = 'block';
+        welcomeText.style.display = 'block';
+    });
+
+    // Login Form Submission
+    loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         
-        // Get form values
         const email = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         const rememberMe = document.getElementById('rememberMe').checked;
 
-        // Validate inputs
         if (!email || !password) {
-            showMessage('Please fill in all fields', 'error');
+            showMessage('Please fill in all fields.', 'error');
             return;
         }
 
-        // Simulate login (replace with actual API call)
-        simulateLogin(email, password, rememberMe);
-    });
+        // Check if user exists in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => user.email === email && user.password === password);
 
-    signupLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        loginForm.style.display = 'none';
-        signupBox.style.display = 'block';
-        welcomeText.style.display = 'none'; // Hide the "Welcome Back" text
-    });
-
-    loginLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        signupBox.style.display = 'none';
-        loginForm.style.display = 'block';
-        welcomeText.style.display = 'block'; // Show the "Welcome Back" text
-    });
-
-    signupForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Get signup form values
-        const signupEmail = document.getElementById('signupUsername').value.trim();
-        const signupPassword = document.getElementById('signupPassword').value.trim();
-        const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-        // Validate inputs
-        if (!signupEmail || !signupPassword || !confirmPassword) {
-            showMessage('Please fill in all fields', 'error');
-            return;
-        }
-
-        if (signupPassword !== confirmPassword) {
-            showMessage('Passwords do not match', 'error');
-            return;
-        }
-
-        // Simulate signup (replace with actual API call)
-        simulateSignup(signupEmail, signupPassword);
-    });
-
-    function simulateLogin(email, password, rememberMe) {
-        // Show loading state
-        const loginButton = loginForm.querySelector('button');
-        loginButton.disabled = true;
-        loginButton.textContent = 'Logging in...';
-
-        // Simulate API call
-        setTimeout(() => {
-            // Success scenario
+        if (user) {
             showMessage('Login successful! Redirecting...', 'success');
-            
-            // Store remember me preference if checked
             if (rememberMe) {
                 localStorage.setItem('rememberedUser', email);
             } else {
                 localStorage.removeItem('rememberedUser');
             }
-
-            // Reset form and button
-            loginButton.disabled = false;
-            loginButton.textContent = 'Login';
-            
-            // Simulate redirect after successful login
             setTimeout(() => {
-                // Replace with actual redirect
-                console.log('Redirect to dashboard');
+                window.location.href = 'dashboard.html'; // Redirect to dashboard
             }, 1500);
-        }, 1000);
-    }
-
-    function simulateSignup(signupEmail, signupPassword) {
-        // Show loading state
-        const signupButton = signupForm.querySelector('button');
-        signupButton.disabled = true;
-        signupButton.textContent = 'Signing up...';
-
-        // Simulate API call
-        setTimeout(() => {
-            // Success scenario
-            showMessage('Signup successful! You can now log in.', 'success');
-            
-            // Reset form and button
-            signupButton.disabled = false;
-            signupButton.textContent = 'Sign Up';
-            signupForm.reset();
-            signupBox.style.display = 'none';
-            loginForm.style.display = 'block';
-            welcomeText.style.display = 'block'; // Show the "Welcome Back" text again
-        }, 1000);
-    }
-
-    function showMessage(text, type) {
-        if (type === 'error') {
-            alert(text); // Show error as alert
         } else {
-            messageDiv.textContent = text;
-            messageDiv.className = `message ${type}`;
+            showMessage('Invalid email or password.', 'error');
         }
-        
-        // Auto hide error messages after 5 seconds
-        if (type === 'error') {
-            setTimeout(() => {
-                messageDiv.style.display = 'none';
-            }, 5000);
+    });
+
+    // Signup Form Submission
+    signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        if (!email || !password || !confirmPassword) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
         }
-    }
+
+        // Validate email format
+        if (!validateEmail(email)) {
+            showMessage('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            showMessage('Passwords do not match.', 'error');
+            return;
+        }
+
+        // Check if email already exists
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userExists = users.some(user => user.email === email);
+
+        if (userExists) {
+            showMessage('Email already exists.', 'error');
+            return;
+        }
+
+        // Save new user to localStorage
+        users.push({ email, password });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        showMessage('Signup successful! You can now log in.', 'success');
+        signupForm.reset();
+        signupBox.style.display = 'none';
+        loginForm.style.display = 'block';
+        welcomeText.style.display = 'block';
+    });
 
     // Check for remembered user
     const rememberedUser = localStorage.getItem('rememberedUser');
     if (rememberedUser) {
         document.getElementById('username').value = rememberedUser;
         document.getElementById('rememberMe').checked = true;
+    }
+
+    // Function to validate email format
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    // Function to show messages
+    function showMessage(text, type) {
+        messageDiv.textContent = text;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
+
+        // Auto-hide message after 5 seconds
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
     }
 });
