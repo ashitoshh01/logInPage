@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShubhaLabh - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">ShubhaLabh</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Support</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Initial Dashboard - Will fade out -->
+        <div id="initial-dashboard" class="dashboard fade-element">
+            <div class="user-info">
+                <div class="welcome-text">
+                    Welcome, <span id="userEmail">User</span>!
+                </div>
+            </div>
+            
+            <h1>Dashboard</h1>
+            <p>You have successfully logged in to your ShubhaLabh account.</p>
+            <p>Loading your personalized content...</p>
+        </div>
+
+        <!-- Main Content - Will fade in -->
+        <div id="main-content" class="main-content fade-element hidden">
+            <!-- Carousel Section -->
+            <div class="carousel-container">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://via.placeholder.com/1200x400/53A318/FFFFFF?text=Special+Offers" alt="Special Offers">
+                            <div class="carousel-caption">
+                                <h2>Special Offers</h2>
+                                <p>Exclusive deals on local shops</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://via.placeholder.com/1200x400/339900/FFFFFF?text=New+Arrivals" alt="New Arrivals">
+                            <div class="carousel-caption">
+                                <h2>New Arrivals</h2>
+                                <p>Discover newly added shops</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://via.placeholder.com/1200x400/666666/FFFFFF?text=Trending+Now" alt="Trending Now">
+                            <div class="carousel-caption">
+                                <h2>Trending Now</h2>
+                                <p>See what's popular in your area</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+
+            <!-- Shop Cards Section -->
+            <section class="shops-section">
+                <h2>Shops Near You</h2>
+                <div class="shop-cards">
+                    <!-- Row 1 -->
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/53A318/FFFFFF?text=Grocery+Store" alt="Grocery Store">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Fresh Foods Market</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.5</span>
+                            </div>
+                            <p class="shop-description">Your local grocery store with fresh vegetables, fruits, and daily essentials.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/339900/FFFFFF?text=Electronics" alt="Electronics">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Tech World</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.0</span>
+                            </div>
+                            <p class="shop-description">Your one-stop shop for all electronics, gadgets, and tech accessories.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/DFF0D8/666666?text=Pharmacy" alt="Pharmacy">
+                        </div>
+                        <div class="shop-details">
+                            <h3>HealthPlus Pharmacy</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                            <p class="shop-description">24/7 pharmacy services with prescription refills and health consultations.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/666666/FFFFFF?text=Bakery" alt="Bakery">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Sweet Delight Bakery</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                            <p class="shop-description">Freshly baked bread, cakes, pastries and custom desserts for all occasions.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/53A318/FFFFFF?text=Clothing" alt="Clothing">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Fashion Hub</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span>3.5</span>
+                            </div>
+                            <p class="shop-description">Latest fashion trends for men, women, and children at affordable prices.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/339900/FFFFFF?text=Books" alt="Books">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Knowledge Corner</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.2</span>
+                            </div>
+                            <p class="shop-description">Extensive collection of books, magazines, and educational materials.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/DFF0D8/666666?text=Hardware" alt="Hardware">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Builder's Hardware</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.1</span>
+                            </div>
+                            <p class="shop-description">Tools, materials, and expert advice for all your DIY and construction needs.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/666666/FFFFFF?text=Restaurant" alt="Restaurant">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Spice Garden Restaurant</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <p class="shop-description">Authentic cuisine with diverse menu options. Dine-in and takeaway available.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/53A318/FFFFFF?text=Toys" alt="Toys">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Kids' Wonder World</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.0</span>
+                            </div>
+                            <p class="shop-description">Educational toys, games, and fun activities for children of all ages.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/339900/FFFFFF?text=Pet+Store" alt="Pet Store">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Happy Paws Pet Shop</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span>3.6</span>
+                            </div>
+                            <p class="shop-description">Pet food, accessories, grooming services, and health products for your pets.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/DFF0D8/666666?text=Flower+Shop" alt="Flower Shop">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Blooms & Petals</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.5</span>
+                            </div>
+                            <p class="shop-description">Fresh flowers, bouquets, and floral arrangements for all special occasions.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-card">
+                        <div class="shop-image">
+                            <img src="https://via.placeholder.com/300x200/666666/FFFFFF?text=Salon" alt="Salon">
+                        </div>
+                        <div class="shop-details">
+                            <h3>Glamour Beauty Salon</h3>
+                            <div class="shop-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.3</span>
+                            </div>
+                            <p class="shop-description">Hair styling, skincare, manicures, pedicures, and complete beauty services.</p>
+                            <a href="#" class="visit-shop-btn">Visit Shop</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

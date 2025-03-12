@@ -1,0 +1,487 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #FFFFFF;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #53A318;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.brand {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #DFF0D8;
+}
+
+/* Container Styles */
+.container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+    min-height: calc(100vh - 70px);
+}
+
+.auth-box {
+    background-color: #FFFFFF;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #53A318;
+    font-size: 28px;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    color: #666666;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #DFF0D8;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: #53A318;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.forgot-password {
+    color: #53A318;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #339900;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background-color: #53A318;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #339900;
+}
+
+.text-center {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 14px;
+}
+
+.link {
+    color: #53A318;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #339900;
+}
+
+.message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+}
+
+.message.success {
+    background-color: #DFF0D8;
+    color: #339900;
+    display: block;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
+/* Dashboard Styles */
+.dashboard {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #DFF0D8;
+}
+
+.welcome-text {
+    font-size: 18px;
+    color: #53A318;
+}
+
+/* .logout-btn {
+    border: 1px solid #53A318;
+    color: #53A318;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+} */
+
+/* OTP Input Styles */
+.otp-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.otp-input {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #DFF0D8;
+    border-radius: 4px;
+}
+
+.resend-otp {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+
+    .auth-box {
+        padding: 1.5rem;
+    }
+
+    .form-options {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* Fade Transitions */
+.fade-element {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Main Content Styles */
+.main-content {
+    width: 100%;
+    max-width: 1200px;
+    opacity: 0;
+    margin: 0 auto;
+}
+
+/* Carousel Styles */
+.carousel-container {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.swiper {
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    touch-action: pan-y pinch-zoom;
+    cursor: grab;
+}
+
+.swiper-slide {
+    position: relative;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+.carousel-caption h2 {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    color: #53A318;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #53A318;
+}
+
+/* Shop Section Styles */
+.shops-section {
+    padding: 1rem 0;
+}
+
+.shops-section h2 {
+    color: #53A318;
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.shop-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.shop-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.shop-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.shop-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.shop-card:hover .shop-image img {
+    transform: scale(1.05);
+}
+
+.shop-details {
+    padding: 1rem;
+}
+
+.shop-details h3 {
+    color: #53A318;
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+}
+
+.shop-rating {
+    color: #f8ce0b;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.shop-rating span {
+    color: #666666;
+    margin-left: 0.5rem;
+    font-size: 14px;
+}
+
+.shop-description {
+    color: #666666;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    height: 60px;
+    overflow: hidden;
+}
+
+.visit-shop-btn {
+    display: inline-block;
+    background-color: #53A318;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.visit-shop-btn:hover {
+    background-color: #339900;
+}
+
+/* Responsive Shop Cards */
+@media (max-width: 1200px) {
+    .shop-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .shop-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .shop-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 18px;
+    }
+    
+    .carousel-caption p {
+        font-size: 14px;
+    }
+    
+    .swiper {
+        height: 300px;
+    }
+}
+
+
+/* Make arrows more visible on mobile */
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        background-color: rgba(83, 163, 24, 0.7);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 18px;
+        color: white;
+    }
+} 

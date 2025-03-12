@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShubhaLabh - Verify OTP</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">ShubhaLabh</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="auth-box">
+            <h1>Verify OTP</h1>
+            <p class="subtitle">Enter the OTP sent to <span id="userEmail">your email</span></p>
+            
+            <form id="verifyOTPForm">
+                <div class="form-group">
+                    <label for="otp">One-Time Password</label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP" maxlength="6" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Verify OTP</button>
+                
+                <p class="text-center resend-otp">
+                    Didn't receive the OTP? <a href="#" id="resendOTP" class="link">Resend OTP</a>
+                </p>
+            </form>
+            
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html> 
