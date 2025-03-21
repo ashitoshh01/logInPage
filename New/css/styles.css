@@ -13,6 +13,9 @@ body {
 
 /* Navbar Styles */
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     background-color: #53A318;
     padding: 1rem 2rem;
     display: flex;
@@ -26,6 +29,12 @@ body {
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.brand:hover {
+    color: #DFF0D8;
 }
 
 .nav-links {
@@ -48,9 +57,12 @@ body {
 /* Container Styles */
 .container {
     max-width: 100%;
-    margin: 0;
-    padding: 20px;
     min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    margin: 0;
 }
 
 .auth-box {
@@ -60,6 +72,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    margin: 0 auto;
 }
 
 h1 {
@@ -186,6 +199,34 @@ input[type="email"]:focus {
     display: block;
 }
 
+/* Add loading message style */
+.message.loading {
+    background-color: #f8f9fa;
+    color: #666;
+    border-left: 4px solid #17a2b8;
+    position: relative;
+    padding-left: 30px;
+}
+
+.message.loading:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -8px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #17a2b8;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Dashboard Styles */
 .dashboard {
     background-color: #fff;
@@ -210,35 +251,146 @@ input[type="email"]:focus {
     color: #53A318;
 }
 
-/* .logout-btn {
-    border: 1px solid #53A318;
-    color: #53A318;
+.logout-btn {
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
     transition: all 0.3s ease;
-} */
+}
+
+.logout-btn:hover {
+    background-color: #FFFFFF;
+    color: #53A318;
+}
 
 /* OTP Input Styles */
 .otp-container {
+    position: relative;
     display: flex;
-    gap: 0.5rem;
+    gap: 10px;
+    align-items: center;
     justify-content: center;
-    margin: 1.5rem 0;
 }
 
-.otp-input {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.2rem;
-    text-align: center;
-    border: 2px solid #DFF0D8;
+.otp-input-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 70%; /* Limit width to create better centering */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.otp-container input {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
     border-radius: 4px;
 }
 
+/* Progress bar for verification */
+.otp-progress {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: 0%;
+    z-index: 0;
+    transition: width 0.5s ease-in-out;
+    border-radius: 2px;
+}
+
+.otp-progress.success {
+    background-color: rgba(83, 163, 24, 0.5); /* Light green */
+}
+
+.otp-progress.error {
+    background-color: rgba(220, 53, 69, 0.5); /* Light red */
+    right: 2px;
+    left: auto;
+}
+
+/* Status icon */
+.otp-status-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.otp-status-icon.success {
+    background-color: #53A318;
+    opacity: 1;
+}
+
+.otp-status-icon.failure {
+    background-color: #dc3545;
+    opacity: 1;
+}
+
+/* Animation keyframes */
+@keyframes fillFromLeft {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes fillFromRight {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* Animation classes */
+.filling-success .otp-progress.success {
+    animation: fillFromLeft 0.5s ease-in-out forwards;
+}
+
+.filling-error .otp-progress.error {
+    animation: fillFromRight 0.5s ease-in-out forwards;
+}
+
+/* Make text transparent during verification */
+.filling-success input, 
+.filling-error input {
+    color: transparent;
+}
+
+/* Show the icon after animation completes */
+.filling-success .otp-status-icon.success,
+.filling-error .otp-status-icon.failure {
+    transition-delay: 1.2s;
+}
+
 .resend-otp {
-    text-align: center;
-    margin-top: 1rem;
+    background-color: transparent;
+    color: #53A318;
+    border: 1px solid #53A318;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+/* Add hover effect to the resend button */
+.resend-otp:hover {
+    background-color: #53A318;
+    color: white;
+    border-color: #53A318;
 }
 
 /* Responsive Design */
@@ -289,6 +441,10 @@ input[type="email"]:focus {
     max-width: 1200px;
     opacity: 0;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Carousel Styles */
@@ -484,4 +640,221 @@ input[type="email"]:focus {
         font-size: 18px;
         color: white;
     }
+}
+
+/* Dashboard container needs different styling */
+.dashboard-container {
+    max-width: 100%;
+    padding: 2rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+}
+
+.dashboard {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Add these styles for the phone input with country code */
+.phone-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.country-code-dropdown {
+    position: relative;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+.selected-country {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border: 2px solid #DFF0D8;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    height: 45px;
+}
+
+.selected-country:hover,
+.selected-country:focus {
+    border-color: #53A318;
+}
+
+.phone-input-container input[type="tel"] {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #DFF0D8;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    height: 45px;
+}
+
+.phone-input-container input[type="tel"]:focus {
+    outline: none;
+    border-color: #53A318;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.country-code {
+    margin-right: 5px;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #666;
+}
+
+.country-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #DFF0D8;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+    margin-top: 5px;
+}
+
+.country-dropdown.show {
+    display: block;
+}
+
+.country-search {
+    padding: 10px;
+    border-bottom: 1px solid #DFF0D8;
+}
+
+.country-search input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #DFF0D8;
+    border-radius: 4px;
+}
+
+.country-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.country-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.country-item:hover {
+    background-color: #f5f5f5;
+}
+
+.country-item .flag-icon {
+    margin-right: 10px;
+}
+
+.country-item .country-name {
+    font-size: 14px;
+    color: #666;
+    margin-right: 5px;
+}
+
+.country-item .country-code {
+    font-size: 14px;
+    color: #53A318;
+}
+
+/* OTP Section Styles */
+.otp-section {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #53A318;
+    transition: opacity 0.5s ease, height 0.5s ease, margin 0.5s ease;
+}
+
+.otp-container input {
+    flex: 1;
+}
+
+.otp-info {
+    margin-top: 0.5rem;
+    font-size: 12px;
+    color: #666;
+}
+
+.otp-timer {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #53A318;
+}
+
+/* Animation for OTP section */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Add styles for the verify email button */
+.verify-email-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    background-color: #53A318;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.verify-email-btn:hover {
+    background-color: #448a13;
+}
+
+/* OTP Verification Visual Feedback */
+@keyframes fillGreen {
+    from { background-position: -100% 0; }
+    to { background-position: 0 0; }
+}
+
+@keyframes fillRed {
+    from { background-position: 200% 0; }
+    to { background-position: 0 0; }
 } 

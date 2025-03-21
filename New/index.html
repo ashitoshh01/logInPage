@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="brand">ShubhaLabh</div>
+        <div class="brand" id="brandLogo">ShubhaLabh</div>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
@@ -52,5 +52,21 @@
     </div>
 
     <script src="js/auth.js"></script>
+    <script>
+        // Make brand clickable but check if we should redirect
+        document.getElementById('brandLogo').addEventListener('click', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('shubhlabh_auth_token') && 
+                              localStorage.getItem('shubhlabh_current_user');
+            
+            // Only redirect if logged in
+            if (isLoggedIn) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+        
+        // Add cursor pointer style
+        document.getElementById('brandLogo').style.cursor = 'pointer';
+    </script>
 </body>
 </html> 

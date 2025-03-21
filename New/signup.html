@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShubhaLabh - Sign Up</title>
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Update flag icons library to a more reliable CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css">
 </head>
 <body>
     <nav class="navbar">
@@ -23,8 +25,54 @@
             
             <form id="signupForm">
                 <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <!-- Verify button will be added here by JavaScript -->
+                </div>
+                
+                <div class="form-group otp-section" id="otpSection" style="display: none;">
+                    <label for="otp">Confirmation OTP</label>
+                    <div class="otp-container">
+                        <div class="otp-input-wrapper">
+                            <input type="text" id="otp" name="otp" placeholder="Enter the 6-digit code sent to your email" maxlength="6" required>
+                            <div class="otp-progress success"></div>
+                            <div class="otp-progress error"></div>
+                            <div class="otp-status-icon" id="otpStatusIcon"></div>
+                        </div>
+                        <button type="button" id="resendOtp" class="resend-otp">Resend</button>
+                    </div>
+                    <div class="otp-info">
+                        <p>A verification code has been sent to your email. Please check your inbox and enter the code above.</p>
+                        <p class="otp-timer">Code expires in: <span id="otpTimer">05:00</span></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input-container">
+                        <div class="country-code-dropdown">
+                            <div class="selected-country" id="selectedCountry">
+                                <span class="flag-icon flag-icon-us"></span>
+                                <span class="country-code">+1</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </div>
+                            <div class="country-dropdown" id="countryDropdown">
+                                <!-- Countries will be loaded here via JS -->
+                                <div class="country-search">
+                                    <input type="text" id="countrySearch" placeholder="Search countries...">
+                                </div>
+                                <div class="country-list" id="countryList">
+                                    <!-- Country list will be populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -40,7 +88,7 @@
                 <button type="submit" class="btn-primary">Sign Up</button>
                 
                 <p class="text-center">
-                    Already have an account? <a href="index.html" class="link">Login</a>
+                    Already have an account? <a href="#" class="link" id="loginLink">Login</a>
                 </p>
             </form>
             
@@ -48,6 +96,28 @@
         </div>
     </div>
 
+    <!-- Add EmailJS library before your other scripts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your user ID
+        (function() {
+            emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS User ID
+        })();
+    </script>
+
     <script src="js/auth.js"></script>
+    <script src="js/countries.js"></script>
+    <script>
+        // Fix login link to properly clear session before redirecting
+        document.getElementById('loginLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Clear any existing session data
+            localStorage.removeItem('shubhlabh_current_user');
+            localStorage.removeItem('shubhlabh_auth_token');
+            localStorage.removeItem('shubhlabh_session_timestamp');
+            // Redirect to login page
+            window.location.href = 'index.html';
+        });
+    </script>
 </body>
 </html> 
