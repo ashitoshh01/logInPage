@@ -55,7 +55,7 @@ function getUsers() {
 
 function saveUsers(users) {
     try {
-        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
     } catch (e) {
         console.error('Error saving users data:', e);
         showMessage('Error saving user data. Please try again.', true);
@@ -612,15 +612,15 @@ function initSignupPage() {
             
             // Use sendEmailOTP function to show alert with OTP
             await sendEmailOTP(email, otp);
-            
+
             // Show OTP section
             otpSection.style.display = 'block';
             otpSection.style.animation = 'fadeIn 0.5s ease';
-            
+                
             // Start OTP timer
             if (otpTimerInterval) clearInterval(otpTimerInterval);
             otpTimerInterval = startOTPTimer();
-            
+  
             // Focus on OTP input
             const otpInput = document.getElementById('otp');
             if (otpInput) otpInput.focus();

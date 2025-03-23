@@ -373,7 +373,7 @@ input[type="email"]:focus {
 /* Show the icon after animation completes */
 .filling-success .otp-status-icon.success,
 .filling-error .otp-status-icon.failure {
-    transition-delay: 1.2s;
+    transition-delay: 0.7s;
 }
 
 .resend-otp {
@@ -630,7 +630,6 @@ input[type="email"]:focus {
 @media (max-width: 768px) {
     .swiper-button-next,
     .swiper-button-prev {
-        background-color: rgba(83, 163, 24, 0.7);
         width: 35px;
         height: 35px;
         border-radius: 50%;
@@ -638,8 +637,8 @@ input[type="email"]:focus {
 
     .swiper-button-next:after,
     .swiper-button-prev:after {
-        font-size: 18px;
-        color: white;
+        font-size: 50px;
+        color: black;
     }
 }
 
@@ -1177,9 +1176,12 @@ input[type="password"] {
         justify-content: space-between;
         align-items: center;
     }
-    
-    .brand {
-        margin-right: auto; /* Push to the left */
+
+    .conto{
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
     .mobile-menu-toggle {
