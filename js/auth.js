@@ -375,7 +375,50 @@ function initLoginRequiredPopup() {
     }
 }
 
-// Update the document ready function
+// Fix form data persistence when switching browser tabs
+function fixTabSwitchDataLoss() {
+    // Get all forms that need persistence
+    const forms = ['loginForm', 'signupForm'];
+    
+    // Save all form data immediately when tab becomes hidden
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            // Save data from all forms when tab loses focus
+            forms.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (form) {
+                    console.log(`Tab hidden, saving data for ${formId}`);
+                    saveFormData(formId);
+                }
+            });
+        } else if (document.visibilityState === 'visible') {
+            // Restore data to all forms when tab regains focus
+            forms.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (form) {
+                    console.log(`Tab visible, loading data for ${formId}`);
+                    loadFormData(formId);
+                }
+            });
+        }
+    });
+    
+    // Also save form data on input changes for immediate persistence
+    forms.forEach(formId => {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        
+        const inputs = form.querySelectorAll('input:not([type="password"])');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                console.log(`Input changed in ${formId}, saving data`);
+                saveFormData(formId);
+            });
+        });
+    });
+}
+
+// Update the document ready function to include the tab switch fix
 document.addEventListener('DOMContentLoaded', function() {
     // Check authentication status first
     checkAuth();
@@ -388,6 +431,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize login required popup
     initLoginRequiredPopup();
+    
+    // Fix tab switch data loss
+    fixTabSwitchDataLoss();
     
     // Get the current page and initialize appropriate event listeners
     const currentPage = window.location.pathname.split('/').pop();
