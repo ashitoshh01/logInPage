@@ -289,7 +289,7 @@ function loadFormData(formId) {
     }
 }
 
-// Add this function to handle the login required popup
+// Update the initLoginRequiredPopup function to handle ESC key
 function initLoginRequiredPopup() {
     // Only run on login or signup pages
     const currentPage = window.location.pathname.split('/').pop();
@@ -314,18 +314,46 @@ function initLoginRequiredPopup() {
         });
     });
     
-    // Close popup when clicking the X
+    // Close popup when clicking the X with animation
     const closeBtn = popup.querySelector('.close-popup');
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
+            // Add the fade-out class
+            popup.classList.add('fade-out');
+            
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 300); // Match the animation duration (0.3s)
         });
     }
     
-    // Close popup when clicking outside
+    // Close popup when clicking outside with animation
     popup.addEventListener('click', function(e) {
         if (e.target === popup) {
-            popup.style.display = 'none';
+            // Add the fade-out class
+            popup.classList.add('fade-out');
+            
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 300); // Match the animation duration (0.3s)
+        }
+    });
+    
+    // Close popup when pressing ESC key with animation
+    document.addEventListener('keydown', function(e) {
+        if ((e.key === 'Escape' || e.key === 'Esc') && popup.style.display === 'flex') {
+            // Add the fade-out class
+            popup.classList.add('fade-out');
+            
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                popup.style.display = 'none';
+                popup.classList.remove('fade-out');
+            }, 300); // Match the animation duration (0.3s)
         }
     });
     

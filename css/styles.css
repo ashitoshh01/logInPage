@@ -1146,4 +1146,14 @@ input[type="password"] {
     display: block;
     width: 100%;
     margin-top: 1rem;
+}
+
+/* Add fade-out animation for popup */
+@keyframes popupFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+.login-required-popup.fade-out {
+    animation: popupFadeOut 0.3s ease forwards;
 } 
