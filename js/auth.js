@@ -532,29 +532,24 @@ function initSignupPage() {
             
             // Generate and send OTP
             const otp = generateOTP();
-            console.log("Generated OTP:", otp); // Debug log
+            
+            // Save OTP data
             saveOTPData(email, otp);
             
-            try {
-                // Show loading message
-                showMessage('Sending verification code...', false, true);
-                
-                // Log the OTP to console for testing
-                console.log(`[TEST MODE] Email: ${email}, OTP: ${otp}`);
-                
-                // Make OTP section visible immediately
-                otpSection.style.display = 'block';
-                otpSection.style.opacity = '1';
-                
-                // Start OTP timer
-                if (otpTimerInterval) clearInterval(otpTimerInterval);
-                otpTimerInterval = startOTPTimer();
-                
-                showMessage('Verification code sent! Check console for the code (test mode)', false);
-            } catch (error) {
-                console.error("Error in OTP process:", error);
-                showMessage('Error sending verification code. Please try again.', true);
-            }
+            // Use sendEmailOTP function to show alert with OTP
+            await sendEmailOTP(email, otp);
+            
+            // Show OTP section
+            otpSection.style.display = 'block';
+            otpSection.style.animation = 'fadeIn 0.5s ease';
+            
+            // Start OTP timer
+            if (otpTimerInterval) clearInterval(otpTimerInterval);
+            otpTimerInterval = startOTPTimer();
+            
+            // Focus on OTP input
+            const otpInput = document.getElementById('otp');
+            if (otpInput) otpInput.focus();
         });
         
         // Keep the original blur event for compatibility
@@ -1049,7 +1044,7 @@ function verifyOTP(email, userOTP) {
     return otpData.otp === userOTP;
 }
 
-// Update the OTP verification function
+// Update the OTP verification function to show alert
 function sendEmailOTP(email, otp) {
     // Show in console for debugging
     console.log(`OTP for ${email}: ${otp}`);
