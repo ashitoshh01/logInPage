@@ -1019,6 +1019,31 @@ function initDashboardPage() {
             redirectToPage('index.html');
         });
     }
+    
+    // Handle mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navContainer = document.getElementById('navContainer');
+    
+    if (mobileMenuToggle && navContainer) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navContainer.classList.toggle('show');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!navContainer.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                navContainer.classList.remove('show');
+            }
+        });
+        
+        // Close menu when clicking a nav link
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navContainer.classList.remove('show');
+            });
+        });
+    }
 }
 
 // Simplified email verification functions

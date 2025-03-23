@@ -39,6 +39,7 @@ body {
 
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
     gap: 2rem;
 }
@@ -1156,4 +1157,99 @@ input[type="password"] {
 
 .login-required-popup.fade-out {
     animation: popupFadeOut 0.3s ease forwards;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-toggle {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Update navbar responsive styles for proper spacing */
+@media (max-width: 770px) {
+    .navbar {
+        padding: 1rem;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .brand {
+        margin-right: auto; /* Push to the left */
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+        margin-left: auto; /* Push to the right */
+    }
+    
+    .nav-container {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #53A318;
+        flex-direction: column;
+        padding: 1rem;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    
+    .nav-container.show {
+        display: flex;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nav-links li {
+        margin: 0.5rem 0;
+    }
+    
+    .logout-btn {
+        margin-top: 1rem;
+        width: 100%;
+    }
+}
+
+/* Update dashboard container for mobile */
+@media (max-width: 770px) {
+    .dashboard-container {
+        padding: 0;
+        width: 100%;
+    }
+    
+    .dashboard {
+        border-radius: 0;
+        box-shadow: none;
+        padding: 1rem;
+        max-width: 100%;
+    }
+    
+    /* Fix carousel arrows */
+    .swiper-button-prev,
+    .swiper-button-next {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        color: #53A318 !important;
+        width: 35px !important;
+        height: 35px !important;
+        border-radius: 50%;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+        font-size: 18px !important;
+    }
 } 

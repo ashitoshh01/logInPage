@@ -13,13 +13,23 @@
 
 <body>
     <nav class="navbar">
-        <div class="brand" id="brandLogo">ShubhaLabh</div>
-        <ul class="nav-links">
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Support</a></li>
-        </ul>
-        <button id="logoutBtn" class="logout-btn">Logout</button>
+        
+        <div class="brand">ShubhaLabh</div>
+        <!-- Add hamburger menu for mobile -->
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <!-- Wrap nav links in a container for mobile toggle -->
+        <div class="nav-container" id="navContainer">
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </ul>
+        </div>
     </nav>
 
     <div class="dashboard-container">
@@ -364,7 +374,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2023 ShubhaLabh. All rights reserved.</p>
+            <p>&copy; 2025 ShubhaLabh. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
