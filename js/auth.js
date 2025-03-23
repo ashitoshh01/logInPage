@@ -289,6 +289,64 @@ function loadFormData(formId) {
     }
 }
 
+// Add this function to handle the login required popup
+function initLoginRequiredPopup() {
+    // Only run on login or signup pages
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage !== 'index.html' && currentPage !== 'signup.html' && currentPage !== '') {
+        return;
+    }
+    
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const popup = document.getElementById('loginRequiredPopup');
+    
+    if (!popup || !navLinks.length) return;
+    
+    // Add click event to all nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Prevent default navigation
+            e.preventDefault();
+            
+            // Show the popup
+            popup.style.display = 'flex';
+        });
+    });
+    
+    // Close popup when clicking the X
+    const closeBtn = popup.querySelector('.close-popup');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+    }
+    
+    // Close popup when clicking outside
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+    
+    // Login button in popup
+    const loginBtn = popup.querySelector('.popup-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            // If on signup page, redirect to login page
+            if (currentPage === 'signup.html') {
+                window.location.href = 'index.html';
+            } else {
+                // If already on login page, just close the popup
+                popup.style.display = 'none';
+                // Focus on email field
+                const emailField = document.getElementById('email');
+                if (emailField) emailField.focus();
+            }
+        });
+    }
+}
+
 // Update the document ready function
 document.addEventListener('DOMContentLoaded', function() {
     // Check authentication status first
@@ -299,6 +357,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize password toggles
     initPasswordToggles();
+    
+    // Initialize login required popup
+    initLoginRequiredPopup();
     
     // Get the current page and initialize appropriate event listeners
     const currentPage = window.location.pathname.split('/').pop();
