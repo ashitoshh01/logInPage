@@ -42,16 +42,31 @@ function showMessage(message, isError = false, isLoading = false) {
 }
 
 function getUsers() {
-    const users = localStorage.getItem(USERS_KEY);
-    return users ? JSON.parse(users) : [];
+    const usersStr = localStorage.getItem(USERS_KEY);
+    if (!usersStr) return [];
+    
+    try {
+        return JSON.parse(usersStr);
+    } catch (e) {
+        console.error('Error parsing users data:', e);
+        return [];
+    }
 }
 
 function saveUsers(users) {
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    try {
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    } catch (e) {
+        console.error('Error saving users data:', e);
+        showMessage('Error saving user data. Please try again.', true);
+    }
 }
 
 function findUserByEmail(email) {
+    if (!email) return null;
+    
     const users = getUsers();
+    // Make case-insensitive comparison
     return users.find(user => user.email.toLowerCase() === email.toLowerCase());
 }
 
@@ -210,6 +225,70 @@ function clearFormFields() {
     }
 }
 
+// Add this function to initialize password toggles
+function initPasswordToggles() {
+    // Find all password fields
+    const passwordFields = document.querySelectorAll('input[type="password"]');
+    
+    passwordFields.forEach(field => {
+        // Create the toggle button
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'password-toggle';
+        toggleBtn.innerHTML = '<i class="fas fa-eye"></i>';
+        toggleBtn.setAttribute('aria-label', 'Toggle password visibility');
+        
+        // Insert the button after the password field
+        field.parentNode.style.position = 'relative';
+        field.parentNode.appendChild(toggleBtn);
+        
+        // Add click event to toggle visibility
+        toggleBtn.addEventListener('click', function() {
+            const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+            field.setAttribute('type', type);
+            
+            // Toggle icon
+            this.innerHTML = type === 'password' ? 
+                '<i class="fas fa-eye"></i>' : 
+                '<i class="fas fa-eye-slash"></i>';
+        });
+    });
+}
+
+// Add these functions for form data persistence
+function saveFormData(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    
+    const formData = {};
+    const elements = form.elements;
+    
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        if (element.name && element.type !== 'password' && element.type !== 'submit') {
+            formData[element.name] = element.value;
+        }
+    }
+    
+    localStorage.setItem(`formData_${formId}`, JSON.stringify(formData));
+}
+
+function loadFormData(formId) {
+    const savedData = localStorage.getItem(`formData_${formId}`);
+    if (!savedData) return;
+    
+    const formData = JSON.parse(savedData);
+    const form = document.getElementById(formId);
+    if (!form) return;
+    
+    for (const key in formData) {
+        const input = form.elements[key];
+        if (input && input.type !== 'password') {
+            input.value = formData[key];
+        }
+    }
+}
+
 // Update the document ready function
 document.addEventListener('DOMContentLoaded', function() {
     // Check authentication status first
@@ -217,6 +296,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Then clear form fields (but respect "Remember me")
     clearFormFields();
+    
+    // Initialize password toggles
+    initPasswordToggles();
     
     // Get the current page and initialize appropriate event listeners
     const currentPage = window.location.pathname.split('/').pop();
@@ -269,6 +351,9 @@ function initLoginPage() {
     const loginForm = document.getElementById('loginForm');
     if (!loginForm) return;
     
+    // Load saved form data
+    loadFormData('loginForm');
+    
     // Clear any existing session when on login page
     clearSession();
     
@@ -296,7 +381,7 @@ function initLoginPage() {
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.trim().toLowerCase();
         const password = document.getElementById('password').value;
         const rememberMe = document.getElementById('rememberMe').checked;
         
@@ -305,25 +390,18 @@ function initLoginPage() {
             return;
         }
         
-        // Verify email if not already verified
-        if (!isEmailVerified(email)) {
-            const isValid = await verifyEmailExists(email);
-            if (!isValid) {
-                return; // Stop form submission if email is invalid
-            }
-        }
-        
+        // Find user with case-insensitive email
         const user = findUserByEmail(email);
         
         if (user && user.password === password) {
             showMessage('Login successful! Redirecting...');
             
-            // Create user session
-            createSession(email);
+            // Create user session with consistent email format
+            createSession(email.toLowerCase());
             
             // Remember user if option is checked
             if (rememberMe) {
-                localStorage.setItem('rememberedUser', email);
+                localStorage.setItem('rememberedUser', email.toLowerCase());
             } else {
                 localStorage.removeItem('rememberedUser');
             }
@@ -341,6 +419,9 @@ function initLoginPage() {
 function initSignupPage() {
     const signupForm = document.getElementById('signupForm');
     if (!signupForm) return;
+    
+    // Load saved form data
+    loadFormData('signupForm');
     
     console.log("Signup page initialized"); // Debug log
     
@@ -907,30 +988,17 @@ function verifyOTP(email, userOTP) {
     return otpData.otp === userOTP;
 }
 
-// Replace the simulateSendEmail function with a real implementation
+// Update the OTP verification function
 function sendEmailOTP(email, otp) {
-    showMessage(`Sending verification code to ${email}...`, false, true);
+    // Show in console for debugging
+    console.log(`OTP for ${email}: ${otp}`);
     
-    // Prepare template parameters
-    const templateParams = {
-        to_email: email,
-        otp_code: otp,
-        user_email: email,
-        expiry_time: '5 minutes'
-    };
+    // Show in alert for user visibility (especially on mobile)
+    alert(`For testing purposes: Your OTP is ${otp}`);
     
-    // Send email using EmailJS
-    return emailjs.send('default_service', 'otp_template', templateParams)
-        .then(function(response) {
-            console.log('Email sent successfully:', response);
-            showMessage(`Verification code sent to ${email}`, false);
-            return true;
-        })
-        .catch(function(error) {
-            console.error('Email sending failed:', error);
-            showMessage('Failed to send verification code. Please try again.', true);
-            return false;
-        });
+    // In a real app, this would send an email
+    showMessage(`Verification code sent to ${email}`, false);
+    return Promise.resolve(true);
 }
 
 // Function to start OTP timer

@@ -667,14 +667,33 @@ input[type="email"]:focus {
 /* Add these styles for the phone input with country code */
 .phone-input-container {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     width: 100%;
+    max-width: 100%;
 }
 
 .country-code-dropdown {
-    position: relative;
+    width: 100px;
     min-width: 100px;
-    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.phone-input-container input[type="tel"] {
+    flex: 1;
+    min-width: 150px;
+    width: calc(100% - 110px);
+    padding: 0.8rem;
+    border: 2px solid #DFF0D8;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    height: 45px;
+}
+
+.phone-input-container input[type="tel"]:focus {
+    outline: none;
+    border-color: #53A318;
 }
 
 .selected-country {
@@ -691,21 +710,6 @@ input[type="email"]:focus {
 
 .selected-country:hover,
 .selected-country:focus {
-    border-color: #53A318;
-}
-
-.phone-input-container input[type="tel"] {
-    flex: 1;
-    padding: 0.8rem;
-    border: 2px solid #DFF0D8;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-    height: 45px;
-}
-
-.phone-input-container input[type="tel"]:focus {
-    outline: none;
     border-color: #53A318;
 }
 
@@ -1042,4 +1046,38 @@ input[type="email"]:focus {
         flex-direction: column;
         gap: 15px;
     }
+}
+
+/* Password toggle button styles */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    margin-top:1rem ;
+    height: 20px; /* Fixed height */
+    width: 20px; /* Fixed width */
+}
+
+.password-toggle i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Adjust password input padding to make room for the icon */
+input[type="password"] {
+    padding-right: 40px;
 } 
