@@ -16,7 +16,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: #53A318;
+    background-color: #52A318;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -1225,8 +1225,8 @@ input[type="password"] {
 
 /* Update dashboard container for mobile */
 @media (max-width: 770px) {
-    .dashboard-container {
-        padding: 0;
+    .carousel-container {
+        padding:0;
         width: 100%;
     }
     
@@ -1241,7 +1241,6 @@ input[type="password"] {
     .swiper-button-prev,
     .swiper-button-next {
         background-color: rgba(255, 255, 255, 0.7) !important;
-        color: #53A318 !important;
         width: 35px !important;
         height: 35px !important;
         border-radius: 50%;
