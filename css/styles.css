@@ -1254,3 +1254,30 @@ input[type="password"] {
         font-size: 18px !important;
     }
 } 
+
+/* Add these to your existing styles.css file */
+.nav-container {
+    transition: all 1s ease;
+}
+
+.nav-links {
+    transition: background-color 1s ease;
+}
+
+@media (max-width: 770px) {
+    .nav-container.show {
+        background-color: rgba(83, 163, 24, 0.9); /* Slightly transparent green */
+        transition: background-color 0.3s ease;
+    }
+    
+    .nav-links {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .nav-container.show .nav-links {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

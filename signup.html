@@ -11,12 +11,22 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="brand">ShubhaLabh</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <div class="conto">
+            <div class="brand">ShubhaLabh</div>
+            <!-- Add hamburger menu for mobile -->
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        
+        <!-- Wrap nav links in a container for mobile toggle -->
+        <div class="nav-container" id="navContainer">
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container">
@@ -109,6 +119,20 @@
     <script src="js/auth.js"></script>
     <script src="js/countries.js"></script>
     <script>
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navContainer = document.getElementById('navContainer');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            navContainer.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!navContainer.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                navContainer.classList.remove('show');
+            }
+        });
         // Fix login link to properly clear session before redirecting
         document.getElementById('loginLink').addEventListener('click', function(e) {
             e.preventDefault();
